@@ -28,7 +28,7 @@ await connectDB()
 const app = express();
 
 app.use(cors({
-  origin: '*',
+  origin: 'https://dashdough.online',
   credentials: true
 }))
 app.use(cookieParser())
