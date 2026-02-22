@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import paymentRouter from "./routes/payment-routes.js"
 import {createPayment} from "./controllers/payment-controller.js"
 import cookieParser from "cookie-parser";
+import cors from "cors"
 
 
 dotenv.config()
@@ -26,6 +27,7 @@ await connectDB()
 
 const app = express();
 
+app.use(cors())
 app.use(cookieParser())
 app.use(express.json()); // for application/json
 app.use(express.urlencoded({ extended: true })); // for form-data or URL-encoded
@@ -37,6 +39,7 @@ app.get("/", (req, res) => {
     console.log(error.message)
   }
 })
+
 app.use('/api/auth', authRouter);
 app.use('/api/payment', paymentRouter)
 
