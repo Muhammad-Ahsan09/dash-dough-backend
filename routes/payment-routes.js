@@ -1,12 +1,12 @@
 import express from "express";
-import { protect } from "../middlewares/auth-middleware";
-import { createPayment } from "../controllers/payment-controller";
-import Payment from "../models/paymend-model";
+import { protect } from "../middlewares/auth-middleware.js";
+import { createPayment } from "../controllers/payment-controller.js";
+import Payment from "../models/paymend-model.js";
 
 const paymentRouter = express.Router();
 
-router.post("/create-payment", protect, createPayment);
-router.post("/payment-callback", async (req, res) => {
+paymentRouter.post("/create-payment", protect, createPayment);
+paymentRouter.post("/payment-callback", async (req, res) => {
     try {
       const data = req.body;
   
@@ -30,4 +30,4 @@ router.post("/payment-callback", async (req, res) => {
   });
   
 
-export default paymentRoute;
+export default paymentRouter;
