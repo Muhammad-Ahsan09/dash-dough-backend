@@ -8,6 +8,7 @@ import paymentRouter from "./routes/payment-routes.js"
 
 
 dotenv.config()
+const PORT = process.env.PORT;
 
 const connectDB = async () => {
     try {
@@ -31,11 +32,17 @@ const app = express();
 app.use(express.json()); // for application/json
 app.use(express.urlencoded({ extended: true })); // for form-data or URL-encoded
 
+app.get("/", (req, res) => {
+  try {
+    res.send("Server working correctly")
+  } catch (error) {
+    console.log(error.message)
+  }
+})
 app.use('/api/auth', authRouter);
 app.use('/api/payment', paymentRouter)
 
 
-
-app.listen(8000,   () => {
-    console.log("Server has started")
+app.listen(PORT,   () => {
+    console.log("Server has started on port", PORT)
 })
