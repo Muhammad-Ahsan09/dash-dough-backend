@@ -4,6 +4,7 @@ import Payment from "../models/paymend-model.js"
 export const createPayment = async (req, res) => {
     try {
       const { amount } = req.body;
+      console.log("amount ", amount);
       const user = req.user;
   
       // 1️⃣ Create a pending payment record

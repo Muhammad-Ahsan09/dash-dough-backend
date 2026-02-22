@@ -40,25 +40,6 @@ app.get("/", (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/payment', paymentRouter)
 
-app.post("/create-payment1", (req, res) => {
-  const paymentData = createPayment();
-
-  let form = `
-    <form id="jazzcashForm" method="POST"
-      action="https://sandbox.jazzcash.com.pk/CustomerPortal/transactionmanagement/merchantform/">
-  `;
-
-  Object.keys(paymentData).forEach(key => {
-    form += `<input type="hidden" name="${key}" value="${paymentData[key]}" />`;
-  });
-
-  form += `
-    </form>
-    <script>document.getElementById("jazzcashForm").submit();</script>
-  `;
-
-  res.send(form);
-});
 
 app.listen(PORT,   () => {
     console.log("Server has started on port", PORT)
