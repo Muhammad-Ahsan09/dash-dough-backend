@@ -2,8 +2,6 @@ import express from "express";
 import authRouter from "./routes/auth-routes.js";
 import dotenv from "dotenv"
 import mongoose from "mongoose";
-import { MongoClient, ServerApiVersion } from "mongodb";
-import { createPayment } from "./controllers/payment-controller.js";
 import paymentRouter from "./routes/payment-routes.js"
 
 
@@ -12,10 +10,7 @@ const PORT = process.env.PORT;
 
 const connectDB = async () => {
     try {
-      await mongoose.connect(process.env.MONGODB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+      await mongoose.connect(process.env.MONGODB_URI);
   
       console.log("MongoDB connected successfully");
     } catch (error) {
@@ -34,7 +29,7 @@ app.use(express.urlencoded({ extended: true })); // for form-data or URL-encoded
 
 app.get("/", (req, res) => {
   try {
-    res.send("Server working correctly")
+    res.send("<h1>Server working correctly</h1>")
   } catch (error) {
     console.log(error.message)
   }
