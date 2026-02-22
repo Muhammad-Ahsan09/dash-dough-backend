@@ -3,6 +3,8 @@ import authRouter from "./routes/auth-routes.js";
 import dotenv from "dotenv"
 import mongoose from "mongoose";
 import paymentRouter from "./routes/payment-routes.js"
+import {createPayment} from "./controllers/payment-controller.js"
+import cookieParser from "cookie-parser";
 
 
 dotenv.config()
@@ -24,6 +26,7 @@ await connectDB()
 
 const app = express();
 
+app.use(cookieParser())
 app.use(express.json()); // for application/json
 app.use(express.urlencoded({ extended: true })); // for form-data or URL-encoded
 
@@ -37,6 +40,25 @@ app.get("/", (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/payment', paymentRouter)
 
+app.post("/create-payment1", (req, res) => {
+  const paymentData = createPayment();
+
+  let form = `
+    <form id="jazzcashForm" method="POST"
+      action="https://sandbox.jazzcash.com.pk/CustomerPortal/transactionmanagement/merchantform/">
+  `;
+
+  Object.keys(paymentData).forEach(key => {
+    form += `<input type="hidden" name="${key}" value="${paymentData[key]}" />`;
+  });
+
+  form += `
+    </form>
+    <script>document.getElementById("jazzcashForm").submit();</script>
+  `;
+
+  res.send(form);
+});
 
 app.listen(PORT,   () => {
     console.log("Server has started on port", PORT)
