@@ -6,6 +6,7 @@ import paymentRouter from "./routes/payment-routes.js"
 import {createPayment} from "./controllers/payment-controller.js"
 import cookieParser from "cookie-parser";
 import cors from "cors"
+import reviewRouter from "./routes/review-routes.js";
 
 
 dotenv.config()
@@ -44,7 +45,8 @@ app.get("/", (req, res) => {
 })
 
 app.use('/api/auth', authRouter);
-app.use('/api/payment', paymentRouter)
+app.use('/api/payment', paymentRouter);
+app.use('/api/review', reviewRouter);
 
 
 app.listen(PORT,   () => {
