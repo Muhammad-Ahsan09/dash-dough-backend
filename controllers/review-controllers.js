@@ -25,3 +25,15 @@ export const createReview = async (req, res) => {
           });
     }
 }
+
+
+export const getAllReviews = async (req, res) => {
+    try {
+        const reviews = await Review.find({})
+
+        return res.status(200).json({reviews})
+    } catch (error) {
+        console.log(error.message)
+        res.json({message: "could not fetch reviews", error: error.message})
+    }
+}
