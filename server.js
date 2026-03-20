@@ -29,7 +29,7 @@ await connectDB()
 const app = express();
 
 app.use(cors({
-  origin: 'https://dashdough.online',
+  origin: ['https://dashdough.online', 'https://www.dashdough.online'],
   credentials: true
 }))
 app.use(cookieParser())
